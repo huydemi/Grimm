@@ -42,11 +42,16 @@ class OptionsController: UIViewController {
     guard let optionsView = UINib(nibName: "OptionsView", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView else { return }
     scrollView.scrollsToTop = false
     
-//    view.addSubview(optionsView)
-//    NSLayoutConstraint.activate([
-//      view.centerXAnchor.constraint(equalTo: optionsView.centerXAnchor),
-//      view.centerYAnchor.constraint(equalTo: optionsView.centerYAnchor)
-//      ])
+    guard UIAccessibilityIsReduceTransparencyEnabled() == false else {
+      view.addSubview(optionsView)
+      
+      NSLayoutConstraint.activate([
+        view.centerXAnchor.constraint(equalTo: optionsView.centerXAnchor),
+        view.centerYAnchor.constraint(equalTo: optionsView.centerYAnchor)
+        ])
+      
+      return
+    }
     
     view.backgroundColor = .clear
     let blurEffect = UIBlurEffect(style: .dark)
