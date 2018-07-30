@@ -42,14 +42,14 @@ class OptionsController: UIViewController {
     guard let optionsView = UINib(nibName: "OptionsView", bundle: nil).instantiate(withOwner: self, options: nil).first as? UIView else { return }
     scrollView.scrollsToTop = false
     
-    view.addSubview(optionsView)
-    NSLayoutConstraint.activate([
-      view.centerXAnchor.constraint(equalTo: optionsView.centerXAnchor),
-      view.centerYAnchor.constraint(equalTo: optionsView.centerYAnchor)
-      ])
+//    view.addSubview(optionsView)
+//    NSLayoutConstraint.activate([
+//      view.centerXAnchor.constraint(equalTo: optionsView.centerXAnchor),
+//      view.centerYAnchor.constraint(equalTo: optionsView.centerYAnchor)
+//      ])
     
     view.backgroundColor = .clear
-    let blurEffect = UIBlurEffect(style: .light)
+    let blurEffect = UIBlurEffect(style: .dark)
     let blurView = UIVisualEffectView(effect: blurEffect)
     blurView.translatesAutoresizingMaskIntoConstraints = false
     view.insertSubview(blurView, at: 0)
@@ -57,6 +57,24 @@ class OptionsController: UIViewController {
     NSLayoutConstraint.activate([
       blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
       blurView.widthAnchor.constraint(equalTo: view.widthAnchor),
+      ])
+    
+    let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+    let vibrancyView = UIVisualEffectView(effect: vibrancyEffect)
+    vibrancyView.translatesAutoresizingMaskIntoConstraints = false
+    vibrancyView.contentView.addSubview(optionsView)
+    blurView.contentView.addSubview(vibrancyView)
+    
+    NSLayoutConstraint.activate([
+      vibrancyView.heightAnchor.constraint(equalTo: blurView.contentView.heightAnchor),
+      vibrancyView.widthAnchor.constraint(equalTo: blurView.contentView.widthAnchor),
+      vibrancyView.centerXAnchor.constraint(equalTo: blurView.contentView.centerXAnchor),
+      vibrancyView.centerYAnchor.constraint(equalTo: blurView.contentView.centerYAnchor)
+      ])
+    
+    NSLayoutConstraint.activate([
+      optionsView.centerXAnchor.constraint(equalTo: vibrancyView.contentView.centerXAnchor),
+      optionsView.centerYAnchor.constraint(equalTo: vibrancyView.contentView.centerYAnchor),
       ])
   }
   
