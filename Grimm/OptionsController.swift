@@ -47,6 +47,17 @@ class OptionsController: UIViewController {
       view.centerXAnchor.constraint(equalTo: optionsView.centerXAnchor),
       view.centerYAnchor.constraint(equalTo: optionsView.centerYAnchor)
       ])
+    
+    view.backgroundColor = .clear
+    let blurEffect = UIBlurEffect(style: .light)
+    let blurView = UIVisualEffectView(effect: blurEffect)
+    blurView.translatesAutoresizingMaskIntoConstraints = false
+    view.insertSubview(blurView, at: 0)
+    
+    NSLayoutConstraint.activate([
+      blurView.heightAnchor.constraint(equalTo: view.heightAnchor),
+      blurView.widthAnchor.constraint(equalTo: view.widthAnchor),
+      ])
   }
   
   override func viewWillAppear(_ animated: Bool) {
